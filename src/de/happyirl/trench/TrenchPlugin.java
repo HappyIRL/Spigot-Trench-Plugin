@@ -50,6 +50,7 @@ public class TrenchPlugin extends JavaPlugin implements Listener
 							if(itemInHand.getType().equals(Material.DIAMOND_PICKAXE))
 								isPick = true;
 							new Trench(event, isPick, inHandTag);
+							break;
 						}
 					}
 				}
