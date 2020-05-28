@@ -21,11 +21,11 @@ public class TrenchingItems
 	public ItemStack shovel3x3;
 	public ItemStack shovel5x5;
 	public ItemStack shovel7x7;
-	public List<ItemStack> trenchItems;
+	public List<NBTTagCompound> trenchItems;
 	
 	public TrenchingItems()
 	{
-		trenchItems = new ArrayList<ItemStack>();
+		trenchItems = new ArrayList<NBTTagCompound>();
 		pick3x3 = createNMS("trench", "3x3", TrenchType.PICK);
 		pick5x5 = createNMS("trench", "5x5", TrenchType.PICK);
 		pick7x7 = createNMS("trench", "7x7",  TrenchType.PICK);
@@ -60,7 +60,7 @@ public class TrenchingItems
 		itemCompound.set(tag, new NBTTagString(data));
 		nmsItem.setTag(itemCompound);
 		ItemStack copy = CraftItemStack.asBukkitCopy(nmsItem);
-		addItemToList(copy);
+		addItemToList(itemCompound);
 		return copy;
 	}
 	public ItemStack getTrenchItem(TrenchAmount amount, TrenchType type)
@@ -87,8 +87,8 @@ public class TrenchingItems
 				return null;
 		}
 	}
-	private void addItemToList(ItemStack item)
+	private void addItemToList(NBTTagCompound itemCompound)
 	{
-		trenchItems.add(item);
+		trenchItems.add(itemCompound);
 	}
 }
