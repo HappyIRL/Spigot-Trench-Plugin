@@ -1,0 +1,8 @@
+name: HappyIRL_Trench
+version: 1.0
+main: de.happyirl.trench.TrenchPlugin
+
+commands:
+   trench:
+      description: Lets player coinflip for all their values!
+      aliases: [tr]
