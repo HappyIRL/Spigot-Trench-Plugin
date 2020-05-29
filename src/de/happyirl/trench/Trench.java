@@ -1,6 +1,7 @@
 package de.happyirl.trench;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.inventory.ItemStack;
 
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
 
@@ -38,9 +40,12 @@ public class Trench implements Listener
 	
 	private boolean isPick = false;
 	
+	Player player;
+	
 	public Trench(BlockBreakEvent event, Boolean isPick, NBTTagCompound inHandTag)
 	{
 		this.isPick = isPick;
+		this.player = event.getPlayer();
 		determineDirection(event,getTrenchAmount(inHandTag));
 	}
 	
@@ -76,6 +81,11 @@ public class Trench implements Listener
 			{
 				if(material.equals(blockMaterial))
 				{
+					Collection<ItemStack> drops = block.getDrops();
+					for(ItemStack item : drops)
+					{
+						player.getInventory().addItem(item);
+					}
 					block.setType(Material.AIR);
 				}
 			}
@@ -103,7 +113,7 @@ public class Trench implements Listener
 	private void determineDirection(BlockBreakEvent event, int amount)
 	{
 		Block brokenBlock = event.getBlock();
-		BlockFace blockFace = getBlockFace(event.getPlayer());
+		BlockFace blockFace = getBlockFace(player);
 		if(blockFace == null)
 		{
 			return;
